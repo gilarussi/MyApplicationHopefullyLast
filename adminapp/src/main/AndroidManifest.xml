@@ -8,6 +8,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplicationHopefullyLast">
         <activity
+            android:name=".NoteDetailsActivity">
+        </activity>
+
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
