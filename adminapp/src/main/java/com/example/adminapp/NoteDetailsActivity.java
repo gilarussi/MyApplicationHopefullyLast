@@ -34,7 +34,7 @@ public class NoteDetailsActivity extends AppCompatActivity {
     {
         String noteTitle = titleEditText.getText().toString();
         String noteContent = contentEditText.getText().toString();
-        if (noteTitle==null ||noteTitle.isEmpty()){
+        if (noteTitle.isEmpty()){  //noteTitle==null ||
             titleEditText.setError("Title is required");
             return;
         }
