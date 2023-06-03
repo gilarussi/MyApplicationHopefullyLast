@@ -12,9 +12,18 @@ import android.widget.TextView;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.Timestamp;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.lang.annotation.Documented;
+import java.util.HashMap;
 
 public class NoteDetailsActivity extends AppCompatActivity {
 
@@ -24,6 +33,7 @@ public class NoteDetailsActivity extends AppCompatActivity {
     String title, content, docId;
     boolean isEditMode = false;
     TextView deleteNoteTextViewBtn;
+    DatabaseReference databaseReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +45,9 @@ public class NoteDetailsActivity extends AppCompatActivity {
         saveNoteBtn = findViewById(R.id.save_note_btn);
         pageTitleTextView = findViewById(R.id.page_title);
         deleteNoteTextViewBtn = findViewById(R.id.delete_note_text_view_btn);
+
+
+        databaseReference = FirebaseDatabase.getInstance().getReference("notes2");
 
         //receive data
         title = getIntent().getStringExtra("title");
@@ -75,7 +88,41 @@ public class NoteDetailsActivity extends AppCompatActivity {
     }
 
     void saveNoteToFirebase(Note note){
+
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        databaseReference.child(""+currentUser.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                if (snapshot.getValue()!=null){
+                    int count= (int) snapshot.getChildrenCount();
+                   DatabaseReference d= databaseReference.child(""+currentUser.getUid()).child(""+(count+1));
+                   d.child("title").setValue(note.getTitle());
+                   d.child("content").setValue(note.getContent());
+                   d.child("time").setValue(note.getTimestamp().getSeconds());
+                }
+                else{
+                    DatabaseReference d= databaseReference.child(""+currentUser.getUid()).child("1");
+                    d.child("title").setValue(note.getTitle());
+                    d.child("content").setValue(note.getContent());
+                    d.child("time").setValue(note.getTimestamp().getSeconds());
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
+
         DocumentReference documentReference;
+        HashMap<String, Boolean> hashMap1 = new HashMap<>();
+        hashMap1.put("is", true);
+        FirebaseFirestore.getInstance().collection("notes")
+                .document(currentUser.getEmail()).set(hashMap1);
         if (isEditMode)
         {   //update note
             documentReference = Utility.getCollectionReferenceForNotes().document(docId);
@@ -113,7 +160,7 @@ public class NoteDetailsActivity extends AppCompatActivity {
                     finish();
                 }
                 else {
-                    Utility.showToast(NoteDetailsActivity.this,"Failed while deleting note");
+                    Utility.showToast(NoteDetailsActivity.this,"Failed while deleted note");
 
                 }
             }

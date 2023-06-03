@@ -1,5 +1,6 @@
 package com.example.myapplicationhopefullylast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -13,8 +14,14 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.myapplicationhopefullylast.databinding.ActivityMainBinding;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 
@@ -26,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
     Button button;
     TextView textView;
     FirebaseUser user;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,6 +80,8 @@ public class MainActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+
     }
     private void replaceFragment(Fragment fragment)
     {
@@ -80,5 +90,17 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction.replace(R.id.frameLayout, fragment);
         fragmentTransaction.commit();
     }
+
+    // Get a reference to the Firestore database
+//    FirebaseFirestore db = FirebaseFirestore.getInstance();
+//
+//    // Get a reference to the collection containing the data
+//    CollectionReference usersCollection = db.collection("notes");
+//    QueryDocumentSnapshot documentSnapshot;
+//    String name = documentSnapshot.getString("title");
+//    String content = documentSnapshot.getString("content");
+
+
+
 
 }

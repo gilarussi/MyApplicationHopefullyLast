@@ -1,5 +1,6 @@
 package com.example.adminapp;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -12,12 +13,20 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.PopupMenu;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QuerySnapshot;
+
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -26,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
     ImageButton menuBtn;
     NoteAdapter noteAdapter;
 
-    FirebaseAuth auth;
+    FirebaseFirestore auth;
     Button button;
     TextView textView;
     FirebaseUser user;
@@ -43,6 +52,24 @@ public class MainActivity extends AppCompatActivity {
         addNoteBtn.setOnClickListener((v) -> startActivity(new Intent(MainActivity.this,NoteDetailsActivity.class)));
         menuBtn.setOnClickListener((v) ->showMenu());
         setupRecyclerView();
+
+
+//        FirebaseFirestore db = FirebaseFirestore.getInstance();
+//
+//        db.collection("notes").addSnapshotListener(new EventListener<QuerySnapshot>() {
+//            @Override
+//            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+//                List<DocumentSnapshot> d= value.getDocuments();
+//                if (d.isEmpty())
+//                {
+//                    Toast.makeText(MainActivity.this, "empty", Toast.LENGTH_SHORT).show();
+//                }
+//                //for (DocumentSnapshot documentSnapshot:d){
+//                Toast.makeText(MainActivity.this, ":"+d.size(), Toast.LENGTH_SHORT).show();
+//
+//            }
+//
+//        });
 
 
 

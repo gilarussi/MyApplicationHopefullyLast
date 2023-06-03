@@ -9,4 +9,6 @@
     <string name="click_to_login">Click to login</string>
     <string name="click_to_register">Click to register</string>
     <string name="logout">Logout</string>
+    <string name="i_want_to_offer_a_job">I want to offer a job</string>
+    <string name="click_to_offer_a_job">Click to offer a job</string>
 </resources>

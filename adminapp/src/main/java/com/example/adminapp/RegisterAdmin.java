@@ -37,6 +37,7 @@ public class RegisterAdmin extends AppCompatActivity {
             finish();
         }
     }
+    public static String finelemail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,6 +84,7 @@ public class RegisterAdmin extends AppCompatActivity {
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 progressBar.setVisibility(View.GONE);
                                 if (task.isSuccessful()) {
+                                    finelemail=email;
                                     Toast.makeText(RegisterAdmin.this, "Account created.",
                                             Toast.LENGTH_SHORT).show();
                                     Intent intent = new Intent(getApplicationContext(),LoginAdmin.class);
