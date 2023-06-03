@@ -66,23 +66,6 @@ public class HomePageFragment extends Fragment {
         View v=inflater.inflate(R.layout.fragment_home_page, container, false);
 
 
-//        FirebaseFirestore db = FirebaseFirestore.getInstance();
-//        DocumentReference documentRef = db.collection("notes")
-//                .document("dNjpEWK1VSrIsQK84WEM");
-//        documentRef.get()
-//                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-//                    @Override
-//                    public void onSuccess(DocumentSnapshot documentSnapshot) {
-//                        if (documentSnapshot.exists()) {
-//
-//                        } else {
-//                            Toast.makeText(getContext(), "dos", Toast.LENGTH_SHORT).show();
-//                            Log.d("FirestoreData", "Document does not exist");
-//                        }
-//                    }
-//                });
-
-
         p=new ArrayList<>();
          //Get a reference to the Firestore database
         FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -119,94 +102,6 @@ public class HomePageFragment extends Fragment {
         });
 
 
-
-//        databaseReference = FirebaseDatabase.getInstance().getReference("notes2");
-//        ArrayList <Person> arrayList = new ArrayList<>();
-//        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                for (DataSnapshot dataSnapshot:snapshot.getChildren()){
-//                    UserRecord userRecord = FirebaseAuth.getInstance().getUser(currentUser)
-//
-//                    for (DataSnapshot d: dataSnapshot.getChildren()){
-//                        Person person=new Person();
-//                    }
-//                }
-//            }
-////0DrGBbFQqdggArU95tS9XGBlsLh2
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//
-//            }
-//        });
-
-
-
-
-
-
-
-
-//        db.collection("notes").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-//            @Override
-//            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-//                if (task.isSuccessful()){
-//                    List<DocumentSnapshot> d=task.getResult().getDocuments();
-//                    if (d.isEmpty())
-//                    {
-//                        Toast.makeText(getActivity(), "empty", Toast.LENGTH_SHORT).show();
-//                    }
-//                    for (DocumentSnapshot documentSnapshot:d){
-//                        Toast.makeText(getActivity(), ":"+documentSnapshot.getId(), Toast.LENGTH_SHORT).show();
-//                    }
-//                }
-//            }
-//        });
-
-
-
-
-
-
-// Get a reference to the collection containing the data
-      //  CollectionReference dataCollection = db.collection("notes");  //.document().collection("my_notes");
-
-// Retrieve the data
-//        dataCollection.get()
-//                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-//                    @Override
-//                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-//                        // Data retrieval successful
-//                        if (queryDocumentSnapshots.isEmpty())
-//                        {
-//                            Toast.makeText(getContext(), "null", Toast.LENGTH_SHORT).show();
-//                        }
-//                        Toast.makeText(getContext(), "good", Toast.LENGTH_SHORT).show();
-//                        for (DocumentSnapshot documentSnapshot : queryDocumentSnapshots.getDocuments()) {
-//                            // Access individual documents and data
-//                            value = documentSnapshot.getString("your_field");
-//                            Toast.makeText(getContext(), ":"+documentSnapshot.getId(), Toast.LENGTH_SHORT).show();
-//                            // Do something with the data
-//                            // e.g., update UI, display in a list, etc.
-//                        }
-//                    }
-//                })
-//                .addOnFailureListener(new OnFailureListener() {
-//                    @Override
-//                    public void onFailure(@NonNull Exception e) {
-//                        // Error occurred during data retrieval
-//                        Toast.makeText(getContext(), "fail", Toast.LENGTH_SHORT).show();
-//                    }
-//                });
-
-
-//        s=new ArrayList<String>();
-//        s.add("one");
-//        s.add("two");
-//        s.add("three");
-//        s.add("four");
-//        s.add("five");
-
         p.add(new Person("hello",new Note()));
         SwipeFlingAdapterView swipeFlingAdapterView=(SwipeFlingAdapterView) v.findViewById(R.id.card);
         arrayAdapter=new ArrayAdapter<Person>(getActivity(),R.layout.details, R.id.textView,p);
@@ -232,7 +127,6 @@ public class HomePageFragment extends Fragment {
             {
                 Toast.makeText(getActivity(), "Right is swiped", Toast.LENGTH_SHORT).show();
                 Log.d(TAG, "Right Swipe");
-
                 String email  = "gil2005.ar@gmail.com";
                 String subject = "job offer";
                 String message = "hey";
