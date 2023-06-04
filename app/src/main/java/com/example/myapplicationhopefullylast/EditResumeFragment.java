@@ -3,6 +3,7 @@ package com.example.myapplicationhopefullylast;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -10,11 +11,20 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.Timestamp;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+
+import java.util.HashMap;
 
 
 public class EditResumeFragment extends Fragment {
@@ -27,6 +37,7 @@ public class EditResumeFragment extends Fragment {
 
     EditText titleEditText,contentEditText;
     ImageButton saveNoteBtn;
+    String id="";
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
@@ -60,9 +71,27 @@ public class EditResumeFragment extends Fragment {
             fragmentFinishListener.onFragmentFinish();
         }
 
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+
+        HashMap<String, Boolean> hashMap1 = new HashMap<>();
+        hashMap1.put("is", true);
+        FirebaseFirestore.getInstance().collection("resume")
+                .document(currentUser.getEmail()).set(hashMap1);
 
         DocumentReference documentReference;
         documentReference = Utility.getCollectionReferenceForNotes().document();
+        documentReference.addSnapshotListener(new EventListener<DocumentSnapshot>() {
+            @Override
+            public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                if (value.exists()){
+                    id=value.getId();
+                    Toast.makeText(getActivity(), "hi"+id, Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+        if (!id.equals("")){
+            Utility.getCollectionReferenceForNotes().document(id).delete();
+        }
         documentReference.set(note).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {

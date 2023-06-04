@@ -8,9 +8,12 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import com.example.myapplicationhopefullylast.databinding.ActivityMainBinding;
@@ -33,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
     Button button;
     TextView textView;
     FirebaseUser user;
+    ImageButton menuBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +44,8 @@ public class MainActivity extends AppCompatActivity {
         binding=ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         replaceFragment(new HomePageFragment());
+        menuBtn = findViewById(R.id.menu_btn);
+        menuBtn.setOnClickListener((v) ->showMenu());
 
         binding.bottomNavigationView.setOnItemReselectedListener(item -> {
 
@@ -59,7 +65,6 @@ public class MainActivity extends AppCompatActivity {
         });
 
         auth =FirebaseAuth.getInstance();
-        button = findViewById(R.id.logout);
         textView = findViewById(R.id.user_details);
         user = auth.getCurrentUser();
         if (user==null)
@@ -71,15 +76,6 @@ public class MainActivity extends AppCompatActivity {
         else {
             textView.setText(user.getEmail());
         }
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                FirebaseAuth.getInstance().signOut();
-                Intent intent = new Intent(getApplicationContext(),Login.class);
-                startActivity(intent);
-                finish();
-            }
-        });
 
 
     }
@@ -100,6 +96,23 @@ public class MainActivity extends AppCompatActivity {
 //    String name = documentSnapshot.getString("title");
 //    String content = documentSnapshot.getString("content");
 
+    void showMenu(){
+        PopupMenu popupMenu = new PopupMenu(MainActivity.this,menuBtn);
+        popupMenu.getMenu().add("logout");
+        popupMenu.show();
+        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuItem) {
+                if(menuItem.getTitle()=="logout"){
+                    FirebaseAuth.getInstance().signOut();
+                    startActivity(new Intent(MainActivity.this,Login.class));
+                    finish();
+                    return true;
+                }
+                return false;
+            }
+        });
+    }
 
 
 

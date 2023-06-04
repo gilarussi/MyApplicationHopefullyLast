@@ -24,7 +24,7 @@ public class Note {
         return content;
     }
     public String toString(){
-        return "\n"+title+"\n"+ "\n"+content;
+        return "\n"+"\n"+title+"\n"+ "\n"+content;
     }
 
     public void setContent(String content) {

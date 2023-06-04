@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -47,6 +48,7 @@ public class HomePageFragment extends Fragment {
 
     ActivityMainBinding binding;
    // String value;
+    String stemp, stemp2;
 
 
 //    ArrayList<String> s;
@@ -102,10 +104,14 @@ public class HomePageFragment extends Fragment {
         });
 
 
-        p.add(new Person("hello",new Note()));
+        Person person = new Person("hello",new Note());
+        p.add(person);
+
+
         SwipeFlingAdapterView swipeFlingAdapterView=(SwipeFlingAdapterView) v.findViewById(R.id.card);
         arrayAdapter=new ArrayAdapter<Person>(getActivity(),R.layout.details, R.id.textView,p);
         swipeFlingAdapterView.setAdapter(arrayAdapter);
+
         swipeFlingAdapterView.setFlingListener(new SwipeFlingAdapterView.onFlingListener() {
             @Override
             public void removeFirstObjectInAdapter()
@@ -125,12 +131,24 @@ public class HomePageFragment extends Fragment {
             @Override
             public void onRightCardExit(Object o)
             {
+                FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+                FirebaseFirestore db = FirebaseFirestore.getInstance();
+                Utility.getCollectionReferenceForNotes().addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                        if (!value.isEmpty()){
+                            List<DocumentSnapshot> d =value.getDocuments();
+                           stemp = d.get(0).getString("title");
+                           stemp2 = d.get(0).getString("content");
+                        }
+                    }
+                });
                 Toast.makeText(getActivity(), "Right is swiped", Toast.LENGTH_SHORT).show();
                 Log.d(TAG, "Right Swipe");
-                String email  = "gil2005.ar@gmail.com";
-                String subject = "job offer";
-                String message = "hey";
-
+                String email  =   p.get(0).getEmail();
+                String subject = ""+stemp;
+                String message = ""+stemp2;
+                Toast.makeText(getActivity(), ""+stemp+stemp2, Toast.LENGTH_SHORT).show();
                 String[] addresses = email.split(",");
 
                 Intent intent = new Intent(Intent.ACTION_SENDTO);

@@ -54,46 +54,7 @@ public class MainActivity extends AppCompatActivity {
         setupRecyclerView();
 
 
-//        FirebaseFirestore db = FirebaseFirestore.getInstance();
-//
-//        db.collection("notes").addSnapshotListener(new EventListener<QuerySnapshot>() {
-//            @Override
-//            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
-//                List<DocumentSnapshot> d= value.getDocuments();
-//                if (d.isEmpty())
-//                {
-//                    Toast.makeText(MainActivity.this, "empty", Toast.LENGTH_SHORT).show();
-//                }
-//                //for (DocumentSnapshot documentSnapshot:d){
-//                Toast.makeText(MainActivity.this, ":"+d.size(), Toast.LENGTH_SHORT).show();
-//
-//            }
-//
-//        });
 
-
-
-
-//        auth =FirebaseAuth.getInstance();
-//        user = auth.getCurrentUser();
-//        if (user==null)
-//        {
-//            Intent intent = new Intent(getApplicationContext(),LoginAdmin.class);
-//            startActivity(intent);
-//            finish();
-//        }
-//        else {
-//            textView.setText(user.getEmail());
-//        }
-//        button.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                FirebaseAuth.getInstance().signOut();
-//                Intent intent = new Intent(getApplicationContext(),LoginAdmin.class);
-//                startActivity(intent);
-//                finish();
-//            }
-//        });
     }
 
     void showMenu(){
