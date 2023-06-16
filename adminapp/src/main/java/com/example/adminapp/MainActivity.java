@@ -1,10 +1,12 @@
 package com.example.adminapp;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -34,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     ImageButton menuBtn;
     NoteAdapter noteAdapter;
+    AlertDialog.Builder builder;
 
     FirebaseFirestore auth;
     Button button;
@@ -52,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
         addNoteBtn.setOnClickListener((v) -> startActivity(new Intent(MainActivity.this,NoteDetailsActivity.class)));
         menuBtn.setOnClickListener((v) ->showMenu());
         setupRecyclerView();
+        builder=new AlertDialog.Builder(this);
 
 
 
@@ -65,9 +69,26 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onMenuItemClick(MenuItem menuItem) {
                 if(menuItem.getTitle()=="logout"){
-                    FirebaseAuth.getInstance().signOut();
-                    startActivity(new Intent(MainActivity.this,LoginAdmin.class));
-                    finish();
+//                    FirebaseAuth.getInstance().signOut();
+//                    startActivity(new Intent(MainActivity.this,LoginAdmin.class));
+//                    finish();
+                    builder.setMessage("Do you want to logout")
+                            .setCancelable(false)
+                            .setPositiveButton("yes", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    finish();
+                                }
+                            })
+                            .setNegativeButton("no", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    dialogInterface.cancel();
+                                }
+                            });
+                    AlertDialog alert = builder.create();
+                    alert.setTitle("Logout");
+                    alert.show();
                     return true;
                 }
                 return false;

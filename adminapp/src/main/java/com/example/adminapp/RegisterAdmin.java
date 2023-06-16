@@ -25,7 +25,7 @@ public class RegisterAdmin extends AppCompatActivity {
     Button buttonReg;
     FirebaseAuth mAuth;
     ProgressBar progressBar;
-    TextView textView;
+    TextView textView,goToApp;;
 
     @Override
     public void onStart() {
@@ -50,6 +50,7 @@ public class RegisterAdmin extends AppCompatActivity {
         buttonReg = findViewById(R.id.btn_register);
         progressBar = findViewById(R.id.progressBar);
         textView = findViewById(R.id.loginNow);
+        goToApp = findViewById(R.id.goToApp);
         textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -58,6 +59,16 @@ public class RegisterAdmin extends AppCompatActivity {
                 finish();
             }
         });
+
+        goToApp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = getPackageManager().getLaunchIntentForPackage("com.example.myapplicationhopefullylast");
+                startActivity(intent);
+                finish();
+            }
+        });
+
 
         buttonReg.setOnClickListener(new View.OnClickListener() {
             @Override

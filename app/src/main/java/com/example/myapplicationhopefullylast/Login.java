@@ -62,7 +62,7 @@ public class Login extends AppCompatActivity {
         goToAdmin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = getPackageManager().getLaunchIntentForPackage("com.Admin App");
+                Intent intent = getPackageManager().getLaunchIntentForPackage("com.example.adminapp");
                 startActivity(intent);
                 finish();
             }

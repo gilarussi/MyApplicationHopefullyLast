@@ -49,7 +49,7 @@ public class Register extends AppCompatActivity {
         buttonReg = findViewById(R.id.btn_register);
         progressBar = findViewById(R.id.progressBar);
         textView = findViewById(R.id.loginNow);
-//        goToAdmin = findViewById(R.id.goToAdmin);
+        goToAdmin = findViewById(R.id.goToAdmin);
         textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -58,14 +58,14 @@ public class Register extends AppCompatActivity {
                 finish();
             }
         });
-//        goToAdmin.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent intent = getPackageManager().getLaunchIntentForPackage("com.Admin App");
-//                startActivity(intent);
-//                finish();
-//            }
-//        });
+        goToAdmin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = getPackageManager().getLaunchIntentForPackage("com.example.adminapp");
+                startActivity(intent);
+                finish();
+            }
+        });
 
         buttonReg.setOnClickListener(new View.OnClickListener() {
             @Override

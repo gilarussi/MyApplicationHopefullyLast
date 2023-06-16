@@ -1,11 +1,13 @@
 package com.example.myapplicationhopefullylast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -37,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
     TextView textView;
     FirebaseUser user;
     ImageButton menuBtn;
+    AlertDialog.Builder builder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
         replaceFragment(new HomePageFragment());
         menuBtn = findViewById(R.id.menu_btn);
         menuBtn.setOnClickListener((v) ->showMenu());
+        builder=new AlertDialog.Builder(this);
 
         binding.bottomNavigationView.setOnItemReselectedListener(item -> {
 
@@ -87,14 +91,7 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction.commit();
     }
 
-    // Get a reference to the Firestore database
-//    FirebaseFirestore db = FirebaseFirestore.getInstance();
-//
-//    // Get a reference to the collection containing the data
-//    CollectionReference usersCollection = db.collection("notes");
-//    QueryDocumentSnapshot documentSnapshot;
-//    String name = documentSnapshot.getString("title");
-//    String content = documentSnapshot.getString("content");
+
 
     void showMenu(){
         PopupMenu popupMenu = new PopupMenu(MainActivity.this,menuBtn);
@@ -104,9 +101,26 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onMenuItemClick(MenuItem menuItem) {
                 if(menuItem.getTitle()=="logout"){
-                    FirebaseAuth.getInstance().signOut();
-                    startActivity(new Intent(MainActivity.this,Login.class));
-                    finish();
+//                    FirebaseAuth.getInstance().signOut();
+//                    startActivity(new Intent(MainActivity.this,Login.class));
+//                    finish();
+                    builder.setMessage("Do you want to logout")
+                            .setCancelable(false)
+                            .setPositiveButton("yes", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    finish();
+                                }
+                            })
+                            .setNegativeButton("no", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    dialogInterface.cancel();
+                                }
+                            });
+                    AlertDialog alert = builder.create();
+                    alert.setTitle("Logout");
+                    alert.show();
                     return true;
                 }
                 return false;

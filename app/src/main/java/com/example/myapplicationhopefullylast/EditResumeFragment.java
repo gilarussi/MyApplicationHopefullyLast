@@ -79,19 +79,20 @@ public class EditResumeFragment extends Fragment {
                 .document(currentUser.getEmail()).set(hashMap1);
 
         DocumentReference documentReference;
-        documentReference = Utility.getCollectionReferenceForNotes().document();
-        documentReference.addSnapshotListener(new EventListener<DocumentSnapshot>() {
-            @Override
-            public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
-                if (value.exists()){
-                    id=value.getId();
-                    Toast.makeText(getActivity(), "hi"+id, Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-        if (!id.equals("")){
-            Utility.getCollectionReferenceForNotes().document(id).delete();
-        }
+        documentReference = Utility.getCollectionReferenceForNotes().document("1");
+
+//        documentReference.addSnapshotListener(new EventListener<DocumentSnapshot>() {
+//            @Override
+//            public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+//                if (value.exists()){
+//                    id=value.getId();
+//                    Toast.makeText(getActivity(), ""+id, Toast.LENGTH_SHORT).show();
+//                }
+//            }
+//        });
+//        if (!id.equals("")){
+//            Utility.getCollectionReferenceForNotes().document(id).delete();
+//        }
         documentReference.set(note).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
@@ -106,6 +107,7 @@ public class EditResumeFragment extends Fragment {
                 }
             }
         });
+
 
     }
 

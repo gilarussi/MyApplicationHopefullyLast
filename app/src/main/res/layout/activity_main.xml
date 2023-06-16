@@ -8,11 +8,11 @@
 
     <TextView
         android:id="@+id/user_details"
-        android:layout_width="146dp"
-        android:layout_height="40dp"
+        android:layout_width="279dp"
+        android:layout_height="32dp"
         android:layout_marginStart="40dp"
         android:gravity="center"
-        android:text="hi"
+        android:text="Username"
         android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/frameLayout"
         app:layout_constraintStart_toStartOf="parent"

@@ -25,7 +25,7 @@ public class LoginAdmin extends AppCompatActivity {
     Button buttonLogin;
     FirebaseAuth mAuth;
     ProgressBar progressBar;
-    TextView textView;//,goToApp;
+    TextView textView,goToApp;
 
     public void onStart() {
         super.onStart();
@@ -48,7 +48,7 @@ public class LoginAdmin extends AppCompatActivity {
         buttonLogin = findViewById(R.id.btn_login);
         progressBar = findViewById(R.id.progressBar);
         textView = findViewById(R.id.registerNow);
-//        goToApp = findViewById(R.id.goToApp);
+        goToApp = findViewById(R.id.goToApp);
         textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -57,14 +57,14 @@ public class LoginAdmin extends AppCompatActivity {
                 finish();
             }
         });
-//        goToApp.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent intent = getPackageManager().getLaunchIntentForPackage("com.MyApplicationHopefullyLast");
-//                startActivity(intent);
-//                finish();
-//            }
-//        });
+        goToApp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = getPackageManager().getLaunchIntentForPackage("com.example.myapplicationhopefullylast");
+                startActivity(intent);
+                finish();
+            }
+        });
 
         buttonLogin.setOnClickListener(new View.OnClickListener() {
             @Override

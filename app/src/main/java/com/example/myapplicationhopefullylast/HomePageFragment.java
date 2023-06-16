@@ -116,7 +116,7 @@ public class HomePageFragment extends Fragment {
             @Override
             public void removeFirstObjectInAdapter()
             {
-                p.remove(0);
+                 p.remove(0);
                 arrayAdapter.notifyDataSetChanged();
             }
 
@@ -148,7 +148,7 @@ public class HomePageFragment extends Fragment {
                 String email  =   p.get(0).getEmail();
                 String subject = ""+stemp;
                 String message = ""+stemp2;
-                Toast.makeText(getActivity(), ""+stemp+stemp2, Toast.LENGTH_SHORT).show();
+             //   Toast.makeText(getActivity(), ""+stemp+stemp2, Toast.LENGTH_SHORT).show();
                 String[] addresses = email.split(",");
 
                 Intent intent = new Intent(Intent.ACTION_SENDTO);
